@@ -12,6 +12,7 @@
 #import "AJGame+Additions.h"
 #import "AJGameViewModel.h"
 #import "AJAddNewItemViewController.h"
+#import "AJPlayersTableViewController.h"
 
 @interface AJGamesTableViewController () <AJAddNewItemViewControllerDelegate>
 
@@ -60,6 +61,12 @@
             AJAddNewItemViewController *controller = (AJAddNewItemViewController *)[(UINavigationController *)segue.destinationViewController topViewController];
             controller.viewModel = [AJGameViewModel gameViewModel];
             controller.delegate = self;
+        }
+    } if ([segue.identifier isEqualToString:@"players"]) {
+        if ([(UINavigationController *)segue.destinationViewController isKindOfClass:[AJPlayersTableViewController class]]) {
+            AJPlayersTableViewController *controller = (AJPlayersTableViewController *)(UINavigationController *)segue.destinationViewController;
+            int rowIndex = [self.tableView indexPathForCell:(AJGameTableViewCell *)sender].row;
+            controller.game = [self.scoresManager getGameWithId:[(AJGameViewModel *)self.gameViewModelsArray[rowIndex] itemId]];
         }
     }
 }
@@ -128,12 +135,12 @@
 - (IBAction)editButtonClicked:(id)sender {
     if ([self.tableView isEditing]) {
         [self.tableView setEditing:NO animated:YES];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleBordered];
+        [self.navigationItem.leftBarButtonItem setTitle:@"Edit"];
+        [self.navigationItem.leftBarButtonItem setStyle:UIBarButtonItemStyleBordered];
     } else {
         [self.tableView setEditing:YES animated:YES];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        [self.navigationItem.leftBarButtonItem setTitle:@"Done"];
+        [self.navigationItem.leftBarButtonItem setStyle:UIBarButtonItemStyleDone];
     }
 }
 
@@ -143,13 +150,14 @@
     [addNewItemViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)addNewItemViewController:(AJAddNewItemViewController *)addNewItemViewController didFinishCreatingViewModel:(AJViewModel *)viewModel {
+- (void)addNewItemViewController:(AJAddNewItemViewController *)addNewItemViewController didFinishCreatingViewModel:(AJGameViewModel *)viewModel {
     [addNewItemViewController dismissViewControllerAnimated:YES completion:NULL];
     
     AJGame *game = [self.scoresManager insertGameWithId:[self.gameViewModelsArray count] atPosition:[self.gameViewModelsArray count]];
     game.name = viewModel.name;
     game.color = viewModel.colorString;
-    game.imageData = viewModel.imageData;
+#warning - this needs refactoring!!!!!!!!
+    game.imageData = /*viewModel.imageData*/UIImagePNGRepresentation(viewModel.image);
     [self.scoresManager saveContext];
     
     [self loadGameViewModels];

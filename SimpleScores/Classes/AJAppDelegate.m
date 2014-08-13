@@ -8,7 +8,8 @@
 
 #import "AJAppDelegate.h"
 
-#define TEST_POPULATE_DB_WITH_GAMES 0
+#define TEST_POPULATE_DB_WITH_GAMES         0
+#define TEST_POPULATE_DB_WITH_PLAYERS       0
 
 @implementation AJAppDelegate
 
@@ -18,16 +19,35 @@
 #if TEST_POPULATE_DB_WITH_GAMES == 1
     NSLog(@"gamesArray: %@", [self.scoresManager getGamesArray]);
     
-    [self.scoresManager insertGameWithId:0];
-    [self.scoresManager insertGameWithId:1];
-    [self.scoresManager insertGameWithId:2];
+    AJGame *game1 = [self.scoresManager insertGameWithId:0 atPosition:0];
+    [self.scoresManager insertGameWithId:1 atPosition:1];
+    [self.scoresManager insertGameWithId:2 atPosition:2];
     
     NSLog(@"gamesArray: %@", [self.scoresManager getGamesArray]);
     
     NSLog(@"at application:didFinishLaunchingWithOptions: the games array is: %@", [self.scoresManager getGamesArray]);
 #endif
     
+#if TEST_POPULATE_DB_WITH_PLAYERS == 1
+    NSLog(@"playersArray for game: %@", [self.scoresManager getGamesArray]);
+    
+    [self.scoresManager insertPlayerWithId:0 forGame:game1];
+    [self.scoresManager insertPlayerWithId:1 forGame:game1];
+    [self.scoresManager insertPlayerWithId:2 forGame:game1];
+    
+    NSLog(@"playersArray for game: %@", [self.scoresManager getGamesArray]);
+    
+    NSLog(@"at application:didFinishLaunchingWithOptions: the playersArray for game is: %@", [self.scoresManager getGamesArray]);
+#endif
+    
     NSLog(@"at application:didFinishLaunchingWithOptions: the games array contains %d items", [[self.scoresManager getGamesArray] count]);
+    
+    for (AJGame *game in [self.scoresManager getGamesArray]) {
+        NSLog(@"players :%@", [self.scoresManager getPlayersArrayForGame:game]);
+    }
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor AJGreenColor],
+                                                           NSFontAttributeName : [UIFont fontWithName:@"BradleyHandITCTT-Bold" size:27.0]}];
     
     return YES;
 }

@@ -193,7 +193,7 @@
                                 <connections>
                                     <outlet property="gameNameLabel" destination="BNC-6Z-7lF" id="9S5-k2-8z0"/>
                                     <outlet property="gamePictureView" destination="Acq-uP-0Wr" id="q2C-w0-TGc"/>
-                                    <segue destination="CQO-rT-F1D" kind="push" id="Nui-RH-hdF"/>
+                                    <segue destination="CQO-rT-F1D" kind="push" identifier="players" id="Nui-RH-hdF"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -203,17 +203,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Games" id="Ica-v0-BMe">
-                        <barButtonItem key="leftBarButtonItem" title="Add" id="5KY-aq-Bfb">
+                        <barButtonItem key="leftBarButtonItem" title="Edit" id="xx3-a2-7Tj">
+                            <color key="tintColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="editButtonClicked:" destination="dmx-bx-gxY" id="sF8-Xs-zuv"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="5KY-aq-Bfb">
                             <color key="tintColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="addButtonClicked:" destination="dmx-bx-gxY" id="K7b-NH-sgH"/>
                                 <segue destination="Vgv-3a-4ys" kind="modal" identifier="addNewGame" id="ao2-Yn-e1W"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="xx3-a2-7Tj">
-                            <color key="tintColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="editButtonClicked:" destination="dmx-bx-gxY" id="sF8-Xs-zuv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -272,7 +272,11 @@
                             <outlet property="delegate" destination="CQO-rT-F1D" id="0yy-zH-udu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Players" id="WQt-QB-12A"/>
+                    <navigationItem key="navigationItem" title="Players" id="WQt-QB-12A">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="NoX-2C-XBh">
+                            <color key="tintColor" red="0.50196081400000003" green="0.25098040700000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gU7-OO-sds" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

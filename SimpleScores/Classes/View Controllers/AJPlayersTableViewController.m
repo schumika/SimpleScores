@@ -9,18 +9,33 @@
 #import "AJPlayersTableViewController.h"
 
 #import "AJPlayerTableViewCell.h"
+#import "AJScoresManager.h"
+#import "AJGame+Additions.h"
+
+#import "AJAppDelegate.h"
 
 @interface AJPlayersTableViewController ()
+
+@property (nonatomic, strong) NSArray *playerViewModelsArray;
+@property (nonatomic, strong) AJScoresManager *scoresManager;
+
+- (void)loadPlayerViewModels;
+
 
 @end
 
 @implementation AJPlayersTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.scoresManager = [(AJAppDelegate *)[[UIApplication sharedApplication] delegate] scoresManager];
+}
 
-    self.navigationItem.backBarButtonItem.tintColor = [UIColor AJBrownColor];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self loadPlayerViewModels];
 }
 
 #pragma mark - Table view data source
@@ -30,7 +45,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [[self.scoresManager getPlayersArrayForGame:self.game] count];
 }
 
 
@@ -49,44 +64,11 @@
     return 80.0;
 }
 
+#pragma mark - Private methods
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)loadPlayerViewModels {
+    
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation

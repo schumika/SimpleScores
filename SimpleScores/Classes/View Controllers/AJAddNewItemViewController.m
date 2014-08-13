@@ -16,7 +16,7 @@
 static NSString *kAJItemImageAndNameTableViewCell = @"AJItemImageAndNameTableViewCell";
 static NSString *kAJColorPickerTableViewCell = @"AJColorPickerTableViewCell";
 
-@interface AJAddNewItemViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface AJAddNewItemViewController () <UITextFieldDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 

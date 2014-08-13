@@ -1,22 +1,21 @@
 //
-//  AJGame.m
+//  AJPlayer.m
 //  SimpleScores
 //
 //  Created by Anca Calugar on 13/08/14.
 //
 //
 
-#import "AJGame.h"
 #import "AJPlayer.h"
+#import "AJGame.h"
 
 
-@implementation AJGame
+@implementation AJPlayer
 
 @dynamic color;
-@dynamic gameId;
+@dynamic playerId;
 @dynamic imageData;
 @dynamic name;
-@dynamic position;
-@dynamic players;
+@dynamic game;
 
 @end

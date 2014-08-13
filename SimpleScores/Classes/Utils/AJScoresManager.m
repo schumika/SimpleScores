@@ -9,6 +9,7 @@
 #import "AJScoresManager.h"
 
 #import "AJGame+Additions.h"
+#import "AJplayer+Additions.h"
 
 @implementation AJScoresManager
 
@@ -113,6 +114,7 @@
 
 #pragma mark - Public methods
 
+// Game methods
 - (NSArray *)getGamesArray {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Game"];
     fetchRequest.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"position" ascending:NO]];
@@ -151,6 +153,18 @@
     for (AJGame *game in [self getGamesArray]) {
         [self deleteGame:game];
     }
+}
+
+// Player methods
+- (NSArray *)getPlayersArrayForGame:(AJGame *)game {
+    return [game.players allObjects];
+}
+
+- (AJPlayer *)insertPlayerWithId:(int)playerId forGame:(AJGame *)game {
+    AJPlayer *player = [AJPlayer createPlayerWithId:playerId forGame:game];
+    [self saveContext];
+    
+    return player;
 }
 
 @end

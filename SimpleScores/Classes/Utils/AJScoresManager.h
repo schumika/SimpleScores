@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class AJGame;
+@class AJPlayer;
 
 @interface AJScoresManager : NSObject
 
@@ -25,5 +26,9 @@
 - (AJGame *)getGameWithId:(int)gameId;
 - (void)deleteGameWithId:(int)gameId;
 - (void)deleteGame:(AJGame *)game;
+
+// Player methods
+- (NSArray *)getPlayersArrayForGame:(AJGame *)game;
+- (AJPlayer *)insertPlayerWithId:(int)playerId forGame:(AJGame *)game;
 
 @end

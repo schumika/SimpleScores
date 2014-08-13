@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class AJGame;
+
 @interface AJPlayersTableViewController : UITableViewController
+
+@property (nonatomic, strong) AJGame *game;
 
 @end
